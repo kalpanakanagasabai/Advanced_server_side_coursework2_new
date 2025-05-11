@@ -13,7 +13,7 @@ const Header = () => {
           <li className="nav-item"><Link to="/profile" className="nav-link">Profile</Link></li>
           <li className="nav-item"><Link to="/country-details" className="nav-link">Country Details</Link></li>
         </ul>
-        {/* You could add a logo or other elements here on the left */}
+       
       </nav>
     </header>
   );

@@ -441,7 +441,6 @@ h2 {
   color: #333;
 }
 
-/* Optional subtle border indicator for country */
 .post-card::before {
   content: "";
   position: absolute;
