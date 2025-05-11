@@ -2952,6 +2952,7 @@ const Home = () => {
     posts.forEach(post => {
       if (countryInfo[post.id]) return; // already fetched
       const name = encodeURIComponent(post.country_name);
+      const info = countryInfo[post.id]
       axios
         .get(`https://restcountries.com/v3.1/name/${name}?fields=capital,currencies,languages,flags`)
         .then(res => {
@@ -3017,6 +3018,9 @@ const Home = () => {
       fetchPosts();
     } catch (_) {}
   };
+ const handlePost = () => {
+    navigate('/Register')
+  };
 
    const handleCreatePost = () => {
     navigate('/Profile')
@@ -3036,6 +3040,36 @@ const Home = () => {
   return (
     
     <div className="home-container">
+      <div style={{
+  backgroundColor: '#e3f2fd',
+  padding: '1.5rem',
+  borderRadius: '10px',
+  marginBottom: '1.5rem',
+  textAlign: 'center',
+  color: '#0d47a1',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+}}>
+  <h1 style={{ marginBottom: '0.5rem' }}>✈️ Explore. Share. Connect.</h1>
+  <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+    Welcome to the Travel Blog Hub! Whether you’re a globe-trotter or just love discovering new cultures,
+    this is your space to share unforgettable journeys and discover stories from around the world.
+  </p>
+  <button
+    onClick={handlePost}
+    style={{
+      backgroundColor: '#1976d2',
+      color: 'white',
+      padding: '0.6rem 1.2rem',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontWeight: 'bold'
+    }}
+  >
+    📝 Share Your Story
+  </button>
+</div>
+
       <h2>All Blog Posts</h2>
       <button onClick={handleLogout} style={{ float:'right' }}>Logout</button>
 
@@ -3076,8 +3110,8 @@ const Home = () => {
                 <strong>Currency:</strong> {info.currency} <br/>
                 <strong>Languages:</strong> {info.languages} <br/>
                 <strong>Visited:</strong> {new Date(post.date_of_visit).toLocaleDateString()}
-                <h3>{post.title}</h3>
-               <p>{post.content}</p>
+                {/* <h3>{post.title}</h3>
+               <p>{post.content}</p> */}
                <p className="post-meta">
                  <strong>{post.username}</strong> — {post.country_name} — {new Date(post.date_of_visit).toLocaleDateString()}
                </p>
@@ -3094,7 +3128,7 @@ const Home = () => {
               )}
 
 <div className="post-content">
-  <h3>{post.title}</h3>
+  {/* <h3>{post.title}</h3> */}
   
   {editingPostId === post.id ? (
     <>
@@ -3111,7 +3145,7 @@ const Home = () => {
     </>
   ) : (
     <>
-      <p>{post.content}</p>
+      {/* <p>{post.content}</p> */}
       {post.user_id === parseInt(userId) && (
         <>
           {/* <button onClick={() => handleEdit(post.id, post.content)}>✏️ Edit</button> */}

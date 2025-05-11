@@ -451,8 +451,8 @@ const Profile = () => {
           </thead>
           <tbody>
             {(following.length === 0 ? [
-              { id: 1, username: "dummy_user1" },
-              { id: 2, username: "dummy_user2" },
+              { id: 1, username: "Lily" },
+              // { id: 2, username: "Lily" },
             ] : following).map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
