@@ -1,39 +1,3 @@
-// // routes/follow.js
-// const express = require('express');
-// const router = express.Router();
-// const db = require('../dbBlog'); // your MySQL db connection
-// const authenticateToken = require('../auth');
-
-// router.post('/follow/:id', authenticateToken, (req, res) => {
-//   const followerId = req.user.id;
-//   const followedId = req.params.id;
-//   db.query('INSERT INTO follows (follower_id, followed_id) VALUES (?, ?)', [followerId, followedId], (err) => {
-//     if (err) return res.status(500).json({ error: 'Already following or DB error' });
-//     res.status(200).json({ message: 'Followed' });
-//   });
-// });
-
-// router.post('/unfollow/:id', authenticateToken, (req, res) => {
-//   const followerId = req.user.id;
-//   const followedId = req.params.id;
-//   db.query('DELETE FROM follows WHERE follower_id = ? AND followed_id = ?', [followerId, followedId], (err) => {
-//     if (err) return res.status(500).json({ error: 'DB error' });
-//     res.status(200).json({ message: 'Unfollowed' });
-//   });
-// });
-
-// router.get('/status/:id', authenticateToken, (req, res) => {
-//   const followerId = req.user.id;
-//   const followedId = req.params.id;
-//   db.query('SELECT * FROM follows WHERE follower_id = ? AND followed_id = ?', [followerId, followedId], (err, results) => {
-//     if (err) return res.status(500).json({ error: 'DB error' });
-//     res.json({ isFollowing: results.length > 0 });
-//   });
-// });
-
-// module.exports = router;
-
-
 const express = require('express');
 const router = express.Router();
 const db = require('../dbBlog');
