@@ -1,4 +1,3 @@
-// dbBlog.js
 const mysql = require('mysql2');
 
 const blogDB = mysql.createConnection({
