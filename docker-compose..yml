@@ -1,28 +1,25 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-
   backend:
     build: ./backend
+    container_name: travel_blog_backend
     ports:
       - "5000:5000"
-    environment:
-      - NODE_ENV=production
-    depends_on:
-      - database
-
-  database:
-    image: sql:latest
-    ports:
-      - "27017:27017"
     volumes:
-      - sql_data:/data/db
+      - ./backend:/usr/src/app
+      - ./backend/db:/usr/src/app/db
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - frontend
 
-volumes:
-  sql_data:
+  frontend:
+    build: ./frontend
+    container_name: travel_blog_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
