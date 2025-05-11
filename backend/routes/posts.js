@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Post not found.' });
     }
 
-    return res.status(200).json({ message: 'Post updated successfully.' }); // ✅ IMPORTANT
+    return res.status(200).json({ message: 'Post updated successfully.' }); 
   } catch (error) {
     console.error('Error updating post:', error);
     return res.status(500).json({ message: 'Internal server error.' });
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', (req, res) => {
   const postId = req.params.id;
 
-  // SQL query to delete the post by ID
+ 
   const query = 'DELETE FROM posts WHERE id = ?';
 
   db.query(query, [postId], (err, result) => {
