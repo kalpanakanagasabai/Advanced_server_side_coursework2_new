@@ -1,0 +1,91 @@
+.edit-post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+  }
+  
+  .edit-post-card {
+    background: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .edit-post-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-post-form label {
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .edit-post-form input,
+  .edit-post-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border 0.2s;
+  }
+  
+  .edit-post-form input:focus,
+  .edit-post-form textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+  }
+  
+  .edit-post-form textarea {
+    min-height: 120px;
+  }
+  
+  .loading-spinner {
+    font-size: 1.2rem;
+    color: #3b82f6;
+    font-weight: 500;
+    padding: 2rem;
+  }
+  
+  .fab-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
+  
+  .fab {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .fab:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+  }
+  
+  .fab:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  

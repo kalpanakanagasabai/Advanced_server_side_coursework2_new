@@ -1,0 +1,76 @@
+/* CountryDetails.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #e0eafc, #d2d6db);
+  font-family: 'Inter', sans-serif;
+}
+
+.country-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 4rem  3rem;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.country-container h1 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  transition: border 0.3s;
+}
+
+select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.country-info {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.country-info img {
+  width: 100%;
+  max-width: 160px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
+
+.country-details {
+  text-align: left;
+}
+
+.country-details h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.country-details p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.country-details strong {
+  color: #2c3e50;
+}

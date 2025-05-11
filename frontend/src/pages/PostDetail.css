@@ -1,0 +1,40 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user-details, .follow-section, .user-posts {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.follow-section ul, .user-posts ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.follow-section li, .user-posts li {
+  padding: 5px 0;
+}
+
+.profile-container {
+  padding: 20px;
+}
+
+.follow-section {
+  margin-bottom: 30px;
+}
+
+.follow-section table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.follow-section th, .follow-section td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}

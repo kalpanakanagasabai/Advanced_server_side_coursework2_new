@@ -1,0 +1,121 @@
+/* Register.css */
+
+/* Import a modern Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  padding: 20px;
+}
+
+.register-card {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1),
+              0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.register-card:hover {
+  transform: translateY(-4px);
+}
+
+.register-card h2 {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 1.3rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #2575fc;
+  outline: none;
+}
+
+.register-button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.register-button:hover {
+  background-color: #1e5ed8;
+  transform: translateY(-1px);
+}
+
+.register-button:disabled {
+  background-color: #a1c4fd;
+  cursor: not-allowed;
+}
+
+.error-message,
+.success-message {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.success-message {
+  color: #2ecc71;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.6rem;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: #2575fc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

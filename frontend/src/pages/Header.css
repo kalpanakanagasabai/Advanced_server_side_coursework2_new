@@ -1,0 +1,46 @@
+/* Header container */
+.header {
+  background-color: #1f1f2e; /* Dark header */
+  padding: 25px 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Navigation bar */
+.nav {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+}
+
+/* Nav list */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav item */
+.nav-item {
+}
+
+/* Nav links */
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #33344d;
+  color: #ffcc00;
+}
+
+/* Optional: Add logo or other items to the left in the future */
