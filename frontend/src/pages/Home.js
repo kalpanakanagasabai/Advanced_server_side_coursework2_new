@@ -2980,22 +2980,57 @@ const Home = () => {
   }, [posts, countryInfo]);
 
   // 4) Rest of your existing handlers (follow/unfollow/like/dislike...)
-  const handleFollow = async targetUserId => {
+  // const handleFollow = async targetUserId => {
+  //   try {
+  //     await axios.post(`http://localhost:5000/users/${targetUserId}/follow`, { followerId: userId });
+  //     fetchFollowing(); fetchFollowers();
+  //     setFollowMessage('✅ Followed successfully.');
+  //     setTimeout(() => setFollowMessage(''), 3000);
+  //   } catch (error) {
+  //     console.error('Follow failed:', error);
+  //   }
+  // };
+
+//   const handleFollow = async targetUserId => {
+//   console.log(`Attempting to follow user ${targetUserId} by user ${userId}`);
+//   try {
+//     await axios.post(`http://localhost:5000/users/${targetUserId}/follow`, { followerId: userId });
+//     fetchFollowing(); fetchFollowers();
+//     setFollowMessage('✅ Followed successfully.');
+//     setTimeout(() => setFollowMessage(''), 3000);
+//   } catch (error) {
+//     console.error('❌ Follow failed:', error.response?.data || error.message);
+//   }
+// };
+
+//   const handleUnfollow = async targetUserId => {
+//     try {
+//       await axios.post(`http://localhost:5000/users/${targetUserId}/unfollow`, { followerId: userId });
+//       fetchFollowing(); fetchFollowers();
+//       setFollowMessage('🚫 Unfollowed successfully.');
+//       setTimeout(() => setFollowMessage(''), 3000);
+//     } catch (error) {
+//       console.error('Unfollow failed:', error);
+//     }
+//   };
+
+ const handleFollow = async (targetUserId) => {
     try {
-      await axios.post(`http://localhost:5000/users/${targetUserId}/follow`, { followerId: userId });
-      fetchFollowing(); fetchFollowers();
-      setFollowMessage('✅ Followed successfully.');
-      setTimeout(() => setFollowMessage(''), 3000);
+      await axios.post(`http://localhost:5000/users/${targetUserId}/follow`, {
+        followerId: userId
+      });
+      fetchFollowing();
     } catch (error) {
       console.error('Follow failed:', error);
     }
   };
-  const handleUnfollow = async targetUserId => {
+
+  const handleUnfollow = async (targetUserId) => {
     try {
-      await axios.post(`http://localhost:5000/users/${targetUserId}/unfollow`, { followerId: userId });
-      fetchFollowing(); fetchFollowers();
-      setFollowMessage('🚫 Unfollowed successfully.');
-      setTimeout(() => setFollowMessage(''), 3000);
+      await axios.post(`http://localhost:5000/users/${targetUserId}/unfollow`, {
+        followerId: userId
+      });
+      fetchFollowing();
     } catch (error) {
       console.error('Unfollow failed:', error);
     }

@@ -1,25 +1,46 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  backend:
-    build: ./backend
-    container_name: travel_blog_backend
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/usr/src/app
-      - ./backend/db:/usr/src/app/db
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - frontend
-
   frontend:
     build: ./frontend
-    container_name: travel_blog_frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=1234
+      - DB_NAME=blog_db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
     volumes:
-      - ./frontend:/app
-    stdin_open: true
-    tty: true
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge

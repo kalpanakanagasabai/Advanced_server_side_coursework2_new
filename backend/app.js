@@ -76,6 +76,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+// app.use('/users', userRoutes);
 
 // Example protected route
 app.get('/api/protected', authenticateToken, (req, res) => {
@@ -267,15 +268,36 @@ app.post('/posts/:id/dislike', async (req, res) => {
 });
 
 
+// app.get('/users/:userId/followers', (req, res) => {
+//   const userId = req.params.userId;
+//   const query = `
+//     SELECT user_db.users.id, user_db.users.username
+//     FROM blog_db.follows
+//     JOIN user_db.users ON blog_db.follows.follower_id = user_db.users.id
+//     WHERE blog_db.follows.followed_id = 1;
+//   `;
+
+//   db.query(query, [userId], (err, result) => {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).json({ error: 'Error fetching followers' });
+//     }
+//     res.json(result);
+//   });
+// });
+
 app.get('/users/:userId/followers', (req, res) => {
   const userId = req.params.userId;
+
+  // Dynamically use the userId in the query
   const query = `
     SELECT user_db.users.id, user_db.users.username
     FROM blog_db.follows
     JOIN user_db.users ON blog_db.follows.follower_id = user_db.users.id
-    WHERE blog_db.follows.followed_id = 1;
+    WHERE blog_db.follows.followed_id = ?;
   `;
 
+  // Execute the query with the dynamic userId
   db.query(query, [userId], (err, result) => {
     if (err) {
       console.error(err);
@@ -286,36 +308,36 @@ app.get('/users/:userId/followers', (req, res) => {
 });
 
 
-app.get('/users/:userId/following', (req, res) => {
-  const userId = req.params.userId;
+// app.get('/users/:userId/following', (req, res) => {
+//   const userId = req.params.userId;
   
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID is required' });
-  }
+//   if (!userId) {
+//     return res.status(400).json({ error: 'User ID is required' });
+//   }
 
-  const query = `
-    SELECT user_db.users.id, user_db.users.username
-    FROM blog_db.follows
-    JOIN user_db.users ON blog_db.follows.followed_id = user_db.users.id
-    WHERE blog_db.follows.follower_id = ?;
-  `;
+//   const query = `
+//     SELECT user_db.users.id, user_db.users.username
+//     FROM blog_db.follows
+//     JOIN user_db.users ON blog_db.follows.followed_id = user_db.users.id
+//     WHERE blog_db.follows.follower_id = ?;
+//   `;
 
-  db.query(query, [userId], (err, result) => {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ error: 'Error fetching following' });
-    }
-    res.json(result);
-  });
-});
+//   db.query(query, [userId], (err, result) => {
+//     if (err) {
+//       console.error('Database error:', err);
+//       return res.status(500).json({ error: 'Error fetching following' });
+//     }
+//     res.json(result);
+//   });
+// });
 
 app.get('/users/:userId/following-posts', (req, res) => {
   const userId = req.params.userId;
 
   const query = `
- SELECT blog_db.posts.*, user_db.users.username
+    SELECT blog_db.posts.*, user_db.users.username
     FROM blog_db.posts
-    JOIN user_db.users ON blog_db.posts.user_id = 4
+    JOIN user_db.users ON blog_db.posts.user_id = 1
     ORDER BY blog_db.posts.date_of_visit DESC
   `;
 
@@ -325,6 +347,109 @@ app.get('/users/:userId/following-posts', (req, res) => {
       return res.status(500).json({ error: 'Database error' });
     }
     res.json(results);
+  });
+});
+
+app.get('/users/:userId/following', (req, res) => {
+  const userId = req.params.userId;
+  console.log(`Fetching following for user: ${userId}`);
+
+  // Your database query here
+  const query = `
+    SELECT user_db.users.id, user_db.users.username
+    FROM blog_db.follows
+    JOIN user_db.users ON blog_db.follows.follower_id = user_db.users.id
+    WHERE blog_db.follows.followed_id = ?;
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching following:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
+
+// POST /users/:targetUserId/follow
+app.post('/users/:targetUserId/follow', (req, res) => {
+  const targetUserId = req.params.targetUserId;
+  const { followerId } = req.body;
+
+  const sql = `INSERT INTO follows (follower_id, followed_id) VALUES (?, ?)`;
+
+  blogdb.query(sql, [followerId, targetUserId], (err, result) => {
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(400).json({ error: 'Already following' });
+      }
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Failed to follow user' });
+    }
+    res.json({ message: 'Followed successfully' });
+  });
+});
+
+
+
+
+// // Route to get user profile
+// app.get('/user/profile', authenticateToken, (req, res) => {
+//   const userId = req.userId;
+//   pool.query('SELECT * FROM users WHERE id = ?', [userId], (err, result) => {
+//     if (err) return res.status(500).json({ message: 'Server Error' });
+//     if (result.length === 0) return res.status(404).json({ message: 'User not found' });
+//     res.json(result[0]);
+//   });
+// });
+
+// // Route to get followers of a user (from the 'follows' table in blog_db)
+// app.get('/user/followers/:userId', (req, res) => {
+//   const userId = req.params.userId;
+//   pool.query(`
+//     SELECT u.id, u.username, u.name
+//     FROM blog_db.follows f
+//     JOIN blog_db.users u ON f.following_id = u.id
+//     WHERE f.followed_id = ?`, [userId], (err, result) => {
+//     if (err) return res.status(500).json({ message: 'Server Error' });
+//     res.json(result);
+//   });
+// });
+
+// // Route to get followings of a user (from the 'follows' table in blog_db)
+app.get('/user/followings/:userId', (req, res) => {
+  const userId = req.params.userId;
+  pool.query(`
+    SELECT u.id, u.username, u.name
+    FROM blog_db.follows f
+    JOIN blog_db.users u ON f.following_id = u.id
+    WHERE f.followed_id = ?`, [userId], (err, result) => {
+    if (err) return res.status(500).json({ message: 'Server Error' });
+    res.json(result);
+  });
+});
+
+// Route to get posts from followed users
+app.get('/posts', authenticateToken, (req, res) => {
+  const userId = req.userId;
+
+  // Get the users that the current user is following (from blog_db)
+  pool.query(`
+    SELECT followed_id FROM blog_db.follows WHERE following_id = ?`, [userId], (err, result) => {
+    if (err) return res.status(500).json({ message: 'Server Error' });
+
+    const followedUserIds = result.map(row => row.followed_id);
+    if (followedUserIds.length === 0) return res.status(404).json({ message: 'No followed users' });
+
+    // Fetch posts from those followed users (posts table assumed to be in the default db)
+    pool.query(`
+      SELECT p.id, p.title, p.content, p.user_id, p.date_of_visit, u.username
+      FROM posts p
+      JOIN users u ON p.user_id = u.id
+      WHERE p.user_id IN (?)`, [followedUserIds], (err, posts) => {
+      if (err) return res.status(500).json({ message: 'Server Error' });
+      res.json(posts);
+    });
   });
 });
 
