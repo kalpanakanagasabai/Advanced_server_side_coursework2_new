@@ -354,7 +354,7 @@ app.get('/users/:userId/following', (req, res) => {
   const userId = req.params.userId;
   console.log(`Fetching following for user: ${userId}`);
 
-  // Your database query here
+  
   const query = `
     SELECT user_db.users.id, user_db.users.username
     FROM blog_db.follows
